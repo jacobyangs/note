@@ -1,0 +1,7 @@
+1.source = <h2><a href="http://www.secbox.cn/hacker/17311.html" title="追踪一个wscriptU盘木马">追踪一个wscriptU盘木马</a></h2>
+	xpath = //h2/a/@href 可以完美典提取链接
+2.取到的html继续当成文件进行提取：
+	from scrapy.selector import Selector
+	item['time'] = Selector(text=response.xpath('//div[@class=\'state\']/ul/li/dt').extract()[2]).xpath('//text()').extract()[0]
+3.一次性取到所以的url:
+	urls = response.xpath('//tbody/tr/td[@class=\'description\']/a/@href').extract()

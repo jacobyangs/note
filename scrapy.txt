@@ -1,0 +1,1 @@
+scrapy默认每次请求都会使用cookie，如果打算在请求中禁用cookie，除了在setting中设置禁用cookie外可以在Request中添加meta={'dont_merge_cookies': True}。

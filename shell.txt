@@ -1,0 +1,8 @@
+#!/bin/bash
+while [ true ]; do
+ls -h
+tree
+/bin/sleep 10
+done
+
+当如果要暂定运行shell  ：ctrl+z    恢复：fg

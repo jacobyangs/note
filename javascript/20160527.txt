@@ -1,0 +1,25 @@
+1.	javascript 的函数一般放在<head></head>之中，或者将其放在页面的最后面
+	demo:	
+<!DOCTYPE html>
+	<html>
+		<head>
+			<script>
+				function myFunction()
+					{
+						document.getElementById("demo").innerHTML="My First JavaScript Function";
+					}
+			</script>
+		</head>
+	<body>
+		<h1>My Web Page</h1>
+		<p id="demo">A Paragraph</p>
+		<button type="button" onclick="myFunction()">Try it</button>
+	</body>
+	</html>
+script的脚本也可以使用外部引用的方式，但是所引用的js文件不能包含<script>标签：
+<!DOCTYPE html>
+<html>
+<body>
+<script src="myScript.js"></script>
+</body>
+</html>

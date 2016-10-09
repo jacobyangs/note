@@ -1,0 +1,48 @@
+1---out of 20 line : DBQuery.shellBatchSize = 300		192.168.90.161
+2---查询age = 22的记录  db.userInfo.find({"age": 22})  相当于： select * from userInfo where age = 22;
+	查询不为空时：db.foo.find({name:{$ne:null}})
+3---查询age > 22的记录  db.userInfo.find({age: {$gt: 22}})   相当于：select * from userInfo where age >22;   
+4---查询age < 22的记录  db.userInfo.find({age: {$lt: 22}})   相当于：select * from userInfo where age <22;
+5---查询age <= 22的记录  db.userInfo.find({age: {$lte: 22}})   相当于：select * from userInfo where age <22;
+6---查询name中包含 mongo的数据 db.userInfo.find({name: /mongo/})  //相当于%%  select * from userInfo where name like ‘%mongo%’;
+
+7---查询指定列name、age数据
+	db.userInfo.find({}, {name: 1, age: 1});
+	相当于：select name, age from userInfo;
+
+8---查询指定列name、age数据, age > 25
+	db.userInfo.find({age: {$gt: 25}}, {name: 1, age: 1});
+	相当于：select name, age from userInfo where age >25;
+
+9---按照年龄排序
+	升序：db.userInfo.find().sort({age: 1});
+	降序：db.userInfo.find().sort({age: -1});
+
+10---查询10条以后的数据
+	db.userInfo.find().skip(10);
+	相当于：select * from userInfo where id not in (
+	selecttop 10 * from userInfo);
+
+11---查询在5-10之间的数据
+	db.userInfo.find().limit(10).skip(5);
+	可用于分页，limit是pageSize，skip是第几页*pageSize
+
+12---查询去掉后的当前聚集集合中的某列的重复数据
+	db.userInfo.distinct("name");
+	会过滤掉name中的相同数据
+	相当于：select distict name from userInfo;为什么我的眼里常含泪水，因为我爱得深沉
+	
+13---删除
+	db.users.remove({age: 132});
+	db.users.remove({})  相当于 truncate tablename
+14---创建索引
+	db.user.ensureIndex({"name":1})
+	db.user.ensureIndex({"name":1,"age":1}) //联合索引
+	db.system.indexes.find()				//可以找到数据库中多有的索引：
+	db.runCommand({"dropIndexes":"user","index":"IX_name"})  //删除索引
+15----如果不需要mongo显示某一个元素：db.tablename.find({},{author:0})
+16：如果你想获取"col"集合中 "likes" 大于100，小于 200 的数据，你可以使用以下命令：
+db.col.find({likes : {$lt :200, $gt : 100}})
+17：
+查询集合c中y的值不存在（不会返回y的值为null的数据）
+db.c.find( { “y” : { $exists : false } } )

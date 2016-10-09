@@ -1,0 +1,12 @@
+1 :To create an index, run this command in your shell:
+	curl -XPUT "http://localhost:9200/music"
+index相当于一个数据库
+2 ：Insert a document 
+	curl -XPUT "http://localhost:9200/music/songs/1" -d '
+	{ "name": "Deck the Halls", "year": 1885, "lyrics": "Fa la la la la" }'
+其中的songs相当于数据库的一个表。在es中用type表示，version表示数据的ID
+3 ： query a document
+	curl -XGET "http://localhost:9200/music/songs/1"
+4 : Delete a document (but not yet)
+	curl -XDELETE "http://localhost:9200/music/lyrics/1"
+5 :Insert a document from a file

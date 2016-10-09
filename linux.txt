@@ -1,0 +1,15 @@
+1.tar 
+	解压缩： tar -zcvf filename
+	打包：tar -zcf name.tar.gz dirname
+2.获取远程服务器上的文件
+scp -P 2222 root@www.vpser.net:/root/lnmp0.4.tar.gz /home/lnmp0.4.tar.gz
+
+3.	将本地文件上传到服务器上
+scp -P 2222 /home/lnmp0.4.tar.gz root@www.vpser.net:/root/lnmp0.4.tar.gz
+4. 统计文件个数：
+	ls -l | grep "^-" | wc -l
+5.安装rpm软件：
+	rpm -ivh jdk-8u25-linux-x64.rpm
+	
+6 ssh 生成公钥与私钥：
+	ssh-keygen -t rsa

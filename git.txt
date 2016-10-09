@@ -1,0 +1,43 @@
+1.创建版本仓库，单独创建在一个文件夹下
+	git init  
+	此时会生成一个.git文件，如果没有使用ls -ah 显示隐藏文件
+2.创建一个文件
+	touch readme.txt (类容自定义)
+3.将上一步创建的文件添加到版本仓库：
+	git add readme.txt
+4.然后提交到仓库
+	git commit -m "wrote a readme file"
+5.git status命令可以让我们时刻掌握仓库当前的状态，上面的命令告诉我们，readme.txt被修改过了，但还没有准备提交的修改。
+	虽然Git告诉我们readme.txt被修改了，但如果能看看具体修改了什么内容，需要用git diff，心里有数之后就可以提交了。
+	git log命令显示从最近到最远的提交日志
+6.版本回退：
+	git reset --hard HEAD^
+	如果对某个版本的id有印象可以用git reset --hard 7b77 回到该版本
+7.如果系统命令删除文件后可以用git checkout -- test.txt 恢复该文件
+	如果用git rm 删除 很难恢复
+8.创建分支：
+	git checkout -b dev
+git checkout命令加上-b参数表示创建并切换，相当于以下两条命令：
+	git branch dev
+	git checkout dev
+		Switched to branch 'dev'
+然后，用git branch命令查看当前分支
+现在，dev分支的工作完成，我们就可以切换回master分支：
+git checkout master(回到主分支)
+	Git鼓励大量使用分支：
+查看分支：git branch
+创建分支：git branch <name>
+切换分支：git checkout <name>
+创建+切换分支：git checkout -b <name>
+合并某分支到当前分支：git merge <name>
+删除分支：git branch -d <name>
+
+9.查看远程库信息，使用git remote -v；
+本地新建的分支如果不推送到远程，对其他人就是不可见的；
+从本地推送分支，使用git push origin branch-name，如果推送失败，先用git pull抓取远程的新提交；
+在本地创建和远程分支对应的分支，使用git checkout -b branch-name origin/branch-name，本地和远程分支的名称最好一致；
+建立本地分支和远程分支的关联，使用git branch --set-upstream branch-name origin/branch-name；
+从远程抓取分支，使用git pull，如果有冲突，要先处理冲突。
+10. 如果新的分支不能够与主分支何并需要设置username和Email：
+ git config --global user.name "ys"
+

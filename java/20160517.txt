@@ -1,0 +1,70 @@
+1，在开发中遇到了需要转换的json数据不全是同一类型的数据是建议考虑是使用泛型：
+	public static <T> Map<String,T> parseJsong(String jsondata){
+		Map<String,T> resultMap = new HashMap<String,T>() //需要发挥的数据类型
+		.
+		.
+		resultMap.put(entry.getKey(), (T) entry.getValue().getAsString());
+	}
+	
+2,但使用gson解析String[] 是需要使用特殊的方法，entry.getValue.getasArray()并不能将其转换成能够
+让Java识别的数组，此时需要使用gosn专用api:
+	Type strArraytype = new TypeToken<String[]>(){}.getType();
+	resultMap.put(entry.getKey,(T)new Gson.fromJson(entry.getValue),strArraytype)
+	List:
+	Type listtype = new TypeToken<List<String>>(){}.getType();
+
+3,    动态的传入对象类型对该对象的实例进行赋值（即调用set方法），此方法通用
+public class SetdomainImpl<T> {
+	private Map<String, T> in; // one line data
+	public Object setObjectfield(Class<? extends Object> clazz) {
+		Object vo = null;
+		try {
+			vo = clazz.newInstance();
+		} catch (InstantiationException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IllegalAccessException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			for (Entry<String, T> eachone : in.entrySet()) {
+				Method m = null;
+				if (eachone.getValue()instanceof String[]) {
+					m = clazz.getMethod("set" + StringUtil.toupcasetofirst(eachone.getKey()), String[].class);
+					m.setAccessible(true);
+					m.invoke(vo, eachone.getValue());
+					continue;
+				}
+				if (eachone.getValue instanceof String){
+					m = clazz.getMethod("set" + StringUtil.toupcasetofirst(eachone.getKey()), String.class);
+					m.setAccessible(true);
+					m.invoke(vo, eachone.getValue());
+				}
+				..... 		//此处可以加对象类型的判断
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return vo;
+	}
+}
+4 ， httpclient post 请求中文乱码解决：
+
+	String requestParams = QueryAndResultHandleUtil.structureParams(queryCondition,page);
+	httpPost.setEntity(new StringEntity(requestParams,"utf-8"));
+	在设置参数是增加编码。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
